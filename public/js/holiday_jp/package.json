@@ -1,0 +1,66 @@
+{
+  "_args": [
+    [
+      "@holiday-jp/holiday_jp@2.2.3",
+      "/home/vagrant/Code/Laravel"
+    ]
+  ],
+  "_from": "@holiday-jp/holiday_jp@2.2.3",
+  "_id": "@holiday-jp/holiday_jp@2.2.3",
+  "_inBundle": false,
+  "_integrity": "sha512-/feA+pXrlfmwLHShtT9jRIlgNv/UGBb5v7evdOttHFBHXlugVoz8NEsf1iPKL1DDGfelD0JYHqtgkJO+yGf54Q==",
+  "_location": "/@holiday-jp/holiday_jp",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@holiday-jp/holiday_jp@2.2.3",
+    "name": "@holiday-jp/holiday_jp",
+    "escapedName": "@holiday-jp%2fholiday_jp",
+    "scope": "@holiday-jp",
+    "rawSpec": "2.2.3",
+    "saveSpec": null,
+    "fetchSpec": "2.2.3"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@holiday-jp/holiday_jp/-/holiday_jp-2.2.3.tgz",
+  "_spec": "2.2.3",
+  "_where": "/home/vagrant/Code/Laravel",
+  "author": {
+    "name": "Ken'ichiro Oyama"
+  },
+  "bugs": {
+    "url": "https://github.com/holiday-jp/holiday_jp-js/issues"
+  },
+  "description": "Japanese holidays",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "js-yaml": "^3.13.1",
+    "mocha": "^5.2.0",
+    "moment": "^2.23.0",
+    "request": "^2.88.0",
+    "should": "~1.2.2",
+    "uglify-js": "^3.4.9",
+    "webpack": "^4.28.2"
+  },
+  "homepage": "https://github.com/holiday-jp/holiday_jp-js",
+  "keywords": [
+    "holidays"
+  ],
+  "license": "MIT",
+  "main": "release/holiday_jp.js",
+  "name": "@holiday-jp/holiday_jp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holiday-jp/holiday_jp-js.git"
+  },
+  "scripts": {
+    "build": "npm run generate; webpack; node scripts/build.js;rm scripts/holiday_jp_webpacked.js;cd ./release/; uglifyjs holiday_jp.js -c -m --source-map -o holiday_jp.min.js",
+    "generate": "git submodule update; cd holiday_jp/; git fetch origin master; git reset --hard origin/master; cd ../; node scripts/generate.js",
+    "test": "mocha --require should test/*.js"
+  },
+  "types": "lib/holiday_jp.d.ts",
+  "version": "2.2.3"
+}

@@ -1,0 +1,125 @@
+@startuml
+(*) --> "
+{{
+salt
+{
+	ソーシャルログイン	|   'G'
+	ログイン    | "MyName   "
+	パスワード | "****     "
+	[] ログインしたままにする
+	[ログイン] | [  パスワードを忘れた方   ]
+}
+}}
+" as Login
+
+Login -down-> "
+{{
+salt
+{+
+	MyPage
+
+	ログイン後のメインページ
+
+~~
+	予約
+	[日時から申し込みをする]
+	[予約状況を確認する]
+	[予約を取り消す]
+}
+}}
+" as MyPage
+
+MyPage -down-> "
+{{
+salt
+{
+	SearchByDateReservation
+	日時と施設名を入力
+~~
+
+	利用したい施設と日時
+
+	年月日|^2020^|^01^|^01^
+	時間|^10時^|^00分^| から |^16時^| |^00分^| まで
+	施設名|^多目的文化ホール^
+}
+}}
+" as Search
+
+MyPage -left-> "
+{{
+salt
+{
+	ReservationIndex
+	予約状況の確認・一覧
+~~
+
+}
+}}
+" as Index
+
+MyPage -right-> "
+{{
+salt
+{
+	DeleteReservation
+	予約の取り消し
+~~
+
+}
+}}
+" as Delete
+
+
+
+Search -down-> "
+{{
+salt
+{
+	ResultByDateReservation
+	検索結果の表示と利用登録の実行
+~~
+	
+	
+}
+}}
+" as Result
+
+Result -down-> "
+{{
+salt
+{
+	ConfirmByDateReservation
+	予約内容の確認と確定
+~~
+	予約内容の確認
+
+	予約する施設|多目的文化ホール
+	予約日時|2020年01月01日/10:00~16:00
+	[ 確定 ]|[ 修正する ]
+}
+}}
+" as Confirm
+
+Confirm -down-> "
+{{
+salt
+{
+	SuccsessByDateReservation
+	予約完了と予約番号のView
+~~
+	予約が完了しました。問い合わせの際に必要なので下記の予約番号をお控え下さい。
+	予約番号
+	20200101
+	[ マイページに戻る ]
+}
+
+
+
+}}
+"
+
+
+
+
+@enduml

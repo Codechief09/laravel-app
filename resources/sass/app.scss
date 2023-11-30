@@ -1,0 +1,16 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// flatpickr
+@import "../../node_modules/flatpickr/dist/themes/airbnb.css";
+
+@import "../../node_modules/flatpickr/dist/plugins/monthSelect/style.css";
+
+// Datetimepicker
+@import "../../node_modules/jquery-datetimepicker/jquery.datetimepicker.css";

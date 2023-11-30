@@ -1,0 +1,88 @@
+@startuml
+/'
+	エンティティに着色
+'/
+
+!define MAIN_ENTITY #dc143c
+!define MAIN_ENTITY_2 #4169e1
+!define MAIN_ENTITY_3 #ffd700 
+!define MAIN_ENTITY_4 #98fb98 
+!define MAIN_ENTITY_5 #faf0e6
+
+/' 他の色も、用途が分りやすいように名前をつけます。 '/
+!define METAL #F2F2F2-#D9D9D9
+!define MASTER_MARK_COLOR #AAFFAA
+!define TRANSACTION_MARK_COLOR #FFAA00
+
+/'
+  デフォルトのスタイルを設定します。
+  この場合の指定は class です。entity ではエラーになります。
+'/
+skinparam class {
+    BackgroundColor METAL
+    BorderColor Black
+    ArrowColor Black
+}
+
+package "開発対象システム" as target_system {
+	 /'
+      マスターテーブルを M、トランザクションを T などと安直にしていますが、
+      チーム内でルールを決めればなんでも良いと思います。交差テーブルは "I" とか。
+      角丸四角形が描けない代替です。
+      １文字なら "主" とか "従" とか日本語でも OK だったのが受ける。
+     '/
+
+     entity "ユーザーテーブル" as user <<M,MASTER_MARK_COLOR>> MAIN_ENTITY {
+     	+ id(ユーザーID)[PK]
+     	--
+     	name(ユーザー名)
+     	email(メールアドレス)
+     	email_verified_at(メール認証フラグ)
+     	password(パスワード)
+     	remember_token(継続ログイン用トークン)
+     	created_at(作成日時)
+     	updated_at（更新日時）
+     }
+
+     entity "パスワードリセット" as password_reset <<M,MASTER_MARK_COLOR>> MAIN_ENTITY_2 {
+     	+ email(メールアドレス)[PK][FK]
+     	--
+     	email(メールアドレス)
+     	token(トークン)
+       	created_at(作成日時)
+     }
+
+     entity "施設テーブル" as facility <<M,MASTER_MARK_COLOR>> MAIN_ENTITY_3 {
+     	+ id[PK]
+     	--
+        facility_code(施設コード)[FK]
+     	facility_name
+     }
+
+     entity "予約情報テーブル" as reserve <<M,MASTER_MARK_COLOR>> MAIN_ENTITY_4 {
+     	+ id(予約ID)[PK]
+     	--
+     	user_id(ユーザーID)[FK]
+     	facility_code(施設コード)[FK]
+     	start_time(開始時間)
+     	end_time(終了時間)
+        reserve_number(予約番号)
+     }
+
+     entity "営業時間テーブル" as business_hours <<M,MASTER_MARK_COLOR>> MAIN_ENTITY_5 {
+     	+ facility_id[PK]
+     	--
+        facility_code(施設コード)[FK]
+     	open(営業開始時間)
+     	close(営業終了時間)
+
+     }
+ }
+
+user       ||-ri-|{     reserve
+facility          ||-le-|{     reserve
+facility          ||-ri-|{     business_hours
+password_reset  ||-ri-|{     user
+
+
+@enduml

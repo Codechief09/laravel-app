@@ -1,0 +1,13 @@
+@startuml
+(*) --> "MyPage"
+--->"SearchByDateReservation"
+--->[年月日・時間・施設名をフォームから受け取る]"ResultByDateReservation"
+if "フォームから受け取った値を元に空きがあるか結果を一覧表示する"
+	-->[空きがある場合]"時間の下にラジオボタンを表示して選択できるようにする"
+	-->[予約する場所と時間を選択して実行ボタンを押す]"ConfirmByDateReservation"
+else
+	-->[空きがない場合]"時間の下に☓のアイコンを出して選択できないようにする"
+endif
+
+
+@enduml

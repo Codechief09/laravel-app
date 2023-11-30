@@ -1,0 +1,16 @@
+@startuml
+:施設選択;
+:flatpickrで日付選択;
+:SubmitボタンでAjax発火、選択した施設と日付をサーバーに送信;
+:PHP側で送信された施設及び日付情報をもとに予約情報をreservesテーブルから検索する;
+if (予約があるかどうか) then (yes)
+:予約情報のカラムのうちid、start_time(利用開始時間)及びend_time(利用終了時間)を取得;
+:サーバーから返ってきた情報を元にflatpickrなどJS側でその時間帯を選択候補から外す;
+:時間帯選択へ;
+stop
+else (nothing)
+endif
+:時間帯選択へ;
+stop
+
+@enduml
